@@ -41,3 +41,7 @@ From de **distrib** folder, use the launcher for your machine.
 
 ![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/2de97b7c-4691-4e3b-b663-2e2fd4126519)
 
+<hr>
+This tool is a demonstration of our know-how.<br/>
+If you are interested in a commercial/industrial AI linguistic project, contact us:<br/>
+https://cubaix.com
