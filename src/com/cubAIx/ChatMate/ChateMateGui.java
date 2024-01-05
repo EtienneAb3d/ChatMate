@@ -470,7 +470,7 @@ public class ChateMateGui {
 								try {
 									aT.process();
 									aT.saveResult();
-									aProcessedSB.append(aT.file.getCanonicalPath()).append("\n");
+									aProcessedSB.append(aT.savePath).append("\n");
 								} catch (Exception e2) {
 									aProcessedSB.append("ERROR:").append(e2.getMessage()).append("\n");
 								}

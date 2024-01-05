@@ -15,10 +15,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Task {
-	Config config = null;
-	File file = null;
-	String userContent = null;
-	String assistantContent = null;
+	public Config config = null;
+	public File file = null;
+	public String savePath = null;
+	public String userContent = null;
+	public String assistantContent = null;
 
 	public Task(Config aConfig,String aUserContent) {
 		config = aConfig;
@@ -49,16 +50,16 @@ public class Task {
 			if(aPos <= 0) {
 				aPos = aPath.length();
 			}
-			aPath = aPath.substring(0, aPos)+config.suffix+aPath.substring(aPos);
+			savePath = aPath.substring(0, aPos)+config.suffix+aPath.substring(aPos);
 			BufferedWriter aBW = new BufferedWriter(
-					new OutputStreamWriter(new FileOutputStream(aPath)
+					new OutputStreamWriter(new FileOutputStream(savePath)
 					,"UTF8"));
 			aBW.write(assistantContent);
 			aBW.flush();
 			aBW.close();
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			}
+		}
 		
 	}
 	
