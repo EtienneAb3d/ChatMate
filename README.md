@@ -5,7 +5,7 @@ Java application to automate ChatGPT queries on a set of files.
 
 ## Run ChatMate
 
-You need to have Java or OpenJDK installed.
+Use the ChatMate Windows Exe release, or the launcher for your system (Java or OpenJDK must be installed).
 
 From de **distrib** folder, use the launcher for your machine.
 
