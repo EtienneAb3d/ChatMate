@@ -1,6 +1,7 @@
 package com.cubAIx.ChatMate;
 
 import java.io.File;
+import java.io.InputStream;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -20,6 +21,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -107,6 +109,9 @@ public class ChateMateGui {
 		gridLayout.verticalSpacing = 0;
 		shell.setLayout(gridLayout);
 		shell.setText("ChatMate "+_VERSION);
+		InputStream aIS = getClass().getResourceAsStream("img/ChatMate.png");
+		Image aChatMateIcon = new Image(display, aIS);
+		shell.setImage(aChatMateIcon);
 
 		createConfigKeyForm();
 		createSystemForm();
