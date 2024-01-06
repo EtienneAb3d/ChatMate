@@ -1,7 +1,7 @@
 # ChatMate
 Java application to automate ChatGPT queries on a set of files.
 
-# Example: create de subtitle SRT translator to Chinese
+# Example: create a Chinese subtitle SRT translator
 
 ## Run ChatMate
 
