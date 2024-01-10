@@ -1,14 +1,6 @@
 # ChatMate
 Java application to automate ChatGPT queries on a set of files.
 
-# Linked projects
-
-https://github.com/EtienneAb3d/karaok-AI<br/>
-https://github.com/EtienneAb3d/WhisperHallu <br/>
-https://github.com/EtienneAb3d/WhisperTimeSync<br/>
-https://github.com/EtienneAb3d/NeuroSpell<br/>
-https://github.com/EtienneAb3d/OpenNeuroSpell<br/>
-
 # Example: create an SRT subtitle translator to Chinese
 
 ## Run ChatMate
@@ -50,6 +42,14 @@ From de **distrib** folder, use the launcher for your machine (Java or OpenJDK m
 3- Each processed file appears on the right with the suffixed name<br/>
 
 ![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/2de97b7c-4691-4e3b-b663-2e2fd4126519)
+
+# Linked projects
+
+https://github.com/EtienneAb3d/karaok-AI<br/>
+https://github.com/EtienneAb3d/WhisperHallu <br/>
+https://github.com/EtienneAb3d/WhisperTimeSync<br/>
+https://github.com/EtienneAb3d/NeuroSpell<br/>
+https://github.com/EtienneAb3d/OpenNeuroSpell<br/>
 
 <hr>
 This tool is a demonstration of our know-how.<br/>
