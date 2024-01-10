@@ -1,7 +1,13 @@
 # ChatMate
 Java application to automate ChatGPT queries on a set of files.
 
-# Example: create an SRT subtitle translator to Chinese
+# Use case example: create an SRT subtitle translator to Chinese
+
+## SRT translation problem
+
+SRT file translation may be complex because of possible bad sentence cut, making each text part loosing its context.
+
+ChatGPT, with its ability to handle complex processing, by translating the SRT at once as a whole, can produce much better SRT translations than other available translation tools.
 
 ## Run ChatMate
 
