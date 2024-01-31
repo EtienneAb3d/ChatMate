@@ -17,20 +17,19 @@ or
 
 From de **distrib** folder, use the launcher for your machine (Java or OpenJDK must be installed).
 
-![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/63c6e353-21bd-401e-b02f-bd0c104d737e)
-
+![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/ae688e00-c8e6-4221-b3a3-773411ba0d49)
 
 ## Configure
 
 1- Define a *Config* name, like **SRTtoZH**<br/>
 2- Define a *Suffix* to add to processed file names, like **-ZH**<br/>
 3- Define a *Model* to use, like **gpt-3.5-turbo**<br/>
-4- Enter a valid ChatGPT *Key*<br/>
-5- Define a *System* prompt, like:<br/>
+4- Define a part size (~ number of paragraphs). 30 is certainly a good choice for SRT files. Less than 1 will send the whole content without cut, with a risk of model context length overload.<br/>
+5- Enter a valid ChatGPT *Key*<br/>
+6- Define a *System* prompt, like:<br/>
 **Translate all text in Chinese keeping the SRT subtitle format with the sentence cut at best for each numbered section of the original.**
 
-![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/47c35a2e-86c6-40bc-87f8-c95c86768f42)
-
+![image](https://github.com/EtienneAb3d/ChatMate/assets/25932245/39265ef6-07f9-4204-b5fc-74d5d506dbe7)
 
 ## Test
 
