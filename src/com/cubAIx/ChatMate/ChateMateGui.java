@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Text;
 
 
 public class ChateMateGui {
-	static final public String _VERSION = "0.1.0";
+	static final public String _VERSION = "0.2.0";
 	
 	public Display display = null;
 	public Shell shell = null;
@@ -47,6 +47,7 @@ public class ChateMateGui {
 	Text configT = null;
 	Text suffixT = null;
 	Text modelT = null;
+	Text partSizeT = null;
 	Text keyT = null;
 
 	Text systemT = null;
@@ -55,6 +56,9 @@ public class ChateMateGui {
 	
 	Text filesT = null;
 	Text processedT = null;
+	
+	Label status = null;
+
 	
 	public ChateMateGui() {
 		currentConfig = new Config();
@@ -117,7 +121,13 @@ public class ChateMateGui {
 		createSystemForm();
 		createTestForm();
 		createFileForm();
-		
+
+		status = new Label(shell, SWT.NONE);
+		status.setText("");
+		status.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		status.setBackground(whiteC);
+		status.setForeground(mainBckC);
+
 		shell.pack();
 		Rectangle aR = display.getBounds();
 		if(aR.width > 1920) {
@@ -136,7 +146,7 @@ public class ChateMateGui {
 		aC.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		GridLayout aGL = new GridLayout();
-		aGL.numColumns = 8;
+		aGL.numColumns = 10;
 		aGL.marginWidth = 0;
 		aGL.marginHeight = 0;
 		aGL.horizontalSpacing = 5;
@@ -215,6 +225,32 @@ public class ChateMateGui {
 				String aModel = modelT.getText();
 				if(!aModel.equals(currentConfig.model)) {
 					currentConfig.model = aModel;
+					currentConfig.save();
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+		});
+		
+		aL = new Label(aC, SWT.NONE);
+		aL.setText("Part size");
+		aGD = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
+		aGD.widthHint = 100;
+		aL.setLayoutData(aGD);
+		
+		partSizeT = new Text(aC, SWT.SINGLE | SWT.LEAD | SWT.BORDER);
+		aGD = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
+		aGD.widthHint = 100;
+		partSizeT.setLayoutData(aGD);
+		partSizeT.setText(""+currentConfig.partSize);
+		partSizeT.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				String aPartSize = partSizeT.getText();
+				if(aPartSize.matches("-?[0-9]+")//Be sure it's ok to parse
+						&& Integer.parseInt(aPartSize) != currentConfig.partSize) {
+					currentConfig.partSize = Integer.parseInt(aPartSize);
 					currentConfig.save();
 				}
 			}
@@ -365,7 +401,17 @@ public class ChateMateGui {
 					@Override
 					public void run() {
 						try {
-							aT.process();
+							aT.process(new MessageListener() {
+								@Override
+								public void message(String aMsg) {
+									display.syncExec(new Thread(new Runnable() {
+										@Override
+										public void run() {
+											status.setText(aMsg);
+										}
+									}));
+								}
+							});
 						} catch (Exception e2) {
 							aT.assistantContent = e2.getMessage();
 						}
@@ -473,10 +519,21 @@ public class ChateMateGui {
 							else {
 								Task aT = new Task(currentConfig,aFile);
 								try {
-									aT.process();
+									aT.process(new MessageListener() {
+										@Override
+										public void message(String aMsg) {
+											display.syncExec(new Thread(new Runnable() {
+												@Override
+												public void run() {
+													status.setText(aMsg);
+												}
+											}));
+										}
+									});
 									aT.saveResult();
 									aProcessedSB.append(aT.savePath).append("\n");
 								} catch (Exception e2) {
+									e2.printStackTrace(System.err);
 									aProcessedSB.append("ERROR:").append(e2.getMessage()).append("\n");
 								}
 							}
@@ -505,8 +562,8 @@ public class ChateMateGui {
 		configT.setText(currentConfig.name);
 		suffixT.setText(currentConfig.suffix);
 		modelT.setText(currentConfig.model);
+		partSizeT.setText(""+currentConfig.partSize);
 		keyT.setText(currentConfig.key.replaceAll(".", "*"));
-		
 		systemT.setText(currentConfig.system);
 	}
 	

@@ -21,6 +21,7 @@ public class Config {
 	public String url = "https://api.openai.com/v1/chat/completions";
 	public String model = "gpt-3.5-turbo";
 	public String key = "XX-XXX";
+	public int partSize = -1;
 	
 	public String system = "You are a helpful assistant";
 	
@@ -35,6 +36,7 @@ public class Config {
 			aBW.write("model="+model+"\n");
 			aBW.write("key="+key+"\n");
 			aBW.write("system="+system.replaceAll("\n", "<br/>")+"\n");
+			aBW.write("partSize="+partSize+"\n");
 			aBW.flush();
 			aBW.close();
 		} catch (Exception e) {
@@ -70,6 +72,9 @@ public class Config {
 				}
 				if("system".equals(aK)) {
 					system = aLine.substring(aPos+1).replaceAll("<br/>", "\n");
+				}
+				if("partSize".equals(aK)) {
+					partSize = Integer.parseInt(aLine.substring(aPos+1));
 				}
 			}
 			aBR.close();

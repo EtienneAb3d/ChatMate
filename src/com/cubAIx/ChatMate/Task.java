@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -60,10 +61,26 @@ public class Task {
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 		}
-		
 	}
 	
-	public void process() throws Exception {
+	public void process(MessageListener aML) throws Exception {
+		Exploder aE = Exploder.getExploder(savePath, userContent);
+		Vector<String> aParts = aE.cutParts(userContent, config.partSize);
+		Vector<String> aPartsOut = new Vector<String>();
+		int aCount = 0;
+		for(String aPart : aParts) {
+			aCount++;
+			aML.message("Processing"+ (file != null?" '"+file.getName()+"'":"")
+					+" Part "+aCount+"/"+aParts.size()
+					+"...");
+			aPartsOut.add(processPart(aPart));
+		}
+		assistantContent = aE.mergeParts(aPartsOut);
+		System.out.println(assistantContent);
+		aML.message("");
+	}
+	
+	public String processPart(String aPart) throws Exception {
 		URL obj = new URL(config.url);
 		HttpURLConnection aCon = (HttpURLConnection) obj.openConnection();
 		aCon.setRequestMethod("POST");
@@ -82,7 +99,7 @@ public class Task {
 		aMsg = new JSONObject();
 		aMsgs.add(aMsg);
 		aMsg.put("role", "user");
-		aMsg.put("content", userContent);
+		aMsg.put("content", aPart);
 		
 		aCon.setDoOutput(true);
 		OutputStreamWriter aOSW = new OutputStreamWriter(aCon.getOutputStream());
@@ -99,17 +116,20 @@ public class Task {
 		}
 		aBR.close();
 
+		String aRes = aSB.toString();
+		System.out.println("ChatGPT: "+aRes);
+		
 		// Extract the message.
 		JSONParser parser = new JSONParser();
-		JSONObject aJSA = (JSONObject)parser.parse(aSB.toString());
-		assistantContent = ((String)
-				((JSONObject)
-						((JSONObject)
-								((JSONArray)aJSA.get("choices")).get(0))
-						.get("message"))
+		JSONObject aJSA = (JSONObject)parser.parse(aRes);
+		System.out.println("Model: "+(aJSA.get("model")));
+		System.out.println("Usage: "+(aJSA.get("usage")));
+		JSONArray aChoices = (JSONArray)aJSA.get("choices");
+		JSONObject aChoice0 = ((JSONObject)aChoices.get(0));
+		System.out.println("Finish: "+(aChoice0.get("finish_reason")));
+		return ((String)
+				((JSONObject)aChoice0.get("message"))
 				.get("content"));
-				
-		System.out.println(assistantContent);
 	}
 
 	public static void main(String[] args) {
