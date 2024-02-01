@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Text;
 
 
 public class ChateMateGui {
-	static final public String _VERSION = "0.2.0";
+	static final public String _VERSION = "0.2.1";
 	
 	public Display display = null;
 	public Shell shell = null;
@@ -512,6 +512,7 @@ public class ChateMateGui {
 					@Override
 					public void run() {
 						for(String aPath : aFileList.split("\n")) {
+							aPath = aPath.trim();
 							File aFile = new File(aPath);
 							if(!aFile.exists()) {
 								aProcessedSB.append("File not found\n");
