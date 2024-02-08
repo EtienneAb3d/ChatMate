@@ -1,5 +1,5 @@
 # ChatMate
-Java application to automate ChatGPT queries on a set of files.
+ChatGPT file processing automation (Java application) 
 
 # Use case example: create an SRT subtitle translator to Chinese
 
@@ -24,7 +24,7 @@ From de **distrib** folder, use the launcher for your machine (Java or OpenJDK m
 1- Define a *Config* name, like **SRTtoZH**<br/>
 2- Define a *Suffix* to add to processed file names, like **-ZH**<br/>
 3- Define a *Model* to use, like **gpt-3.5-turbo**<br/>
-4- Define a part size (~ number of paragraphs). 30 is certainly a good choice for SRT files. Less than 1 will send the whole content without cut, with a risk of model context length overload.<br/>
+4- Define a *Part size* (~ number of paragraphs to be processed at each ChatGPT call). On each ChatGPT call, the number of input+output tokens is limited. Too many tokens also brings with lower quality result. A value of 30 is certainly a good choice for SRT files. Less than 1 will send the whole file content without cut, with a risk of ChatGPT model context length overload.<br/>
 5- Enter a valid ChatGPT *Key*<br/>
 6- Define a *System* prompt, like:<br/>
 **Translate all text in Chinese keeping the SRT subtitle format with the sentence cut at best for each numbered section of the original.**
