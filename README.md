@@ -1,5 +1,5 @@
 # ChatMate
-ChatGPT file processing automation (Java application) 
+ChatGPT file processing automation (Java version) 
 
 # Use case example: create an SRT subtitle translator to Chinese
 
